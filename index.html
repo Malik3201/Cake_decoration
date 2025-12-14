@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Dreams Bakery - Artisan Cakes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="cart-notification" class="cart-notification"></div>
+    
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <h1>🎂 Sweet Dreams</h1>
+                    <p class="tagline">Artisan Bakery</p>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#products" class="nav-link">Cakes</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                <div class="cart-icon" id="cart-icon">
+                    <span class="cart-count" id="cart-count">0</span>
+                    🛒
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Handcrafted Perfection</h2>
+            <p class="hero-subtitle">Indulge in our exquisite collection of artisan cakes, baked fresh daily with love and premium ingredients</p>
+            <a href="#products" class="btn btn-primary">Explore Our Collection</a>
+        </div>
+        <div class="hero-decoration">
+            <div class="floating-cake">🍰</div>
+            <div class="floating-cake">🎂</div>
+            <div class="floating-cake">🧁</div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <h2 class="section-title">Our Signature Cakes</h2>
+            <p class="section-subtitle">Each cake is a masterpiece, crafted with passion and the finest ingredients</p>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-category="all">All Cakes</button>
+                <button class="filter-btn" data-category="chocolate">Chocolate</button>
+                <button class="filter-btn" data-category="fruit">Fruit</button>
+                <button class="filter-btn" data-category="classic">Classic</button>
+                <button class="filter-btn" data-category="special">Special</button>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search for your dream cake...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be dynamically loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="about-image-placeholder">
+                        <span class="large-emoji">👨‍🍳</span>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Sweet Dreams Bakery has been creating memorable moments since 2010. Our master bakers combine traditional techniques with modern innovation to craft cakes that are not just desserts, but edible art.</p>
+                    <p>Every cake is made to order using locally sourced, premium ingredients. We believe that the secret to a perfect cake is patience, precision, and a whole lot of love.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>10,000+</h3>
+                            <p>Happy Customers</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>50+</h3>
+                            <p>Cake Varieties</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>100%</h3>
+                            <p>Fresh & Natural</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="section-subtitle">Have a special request? We'd love to create your dream cake!</p>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <h4>Visit Us</h4>
+                            <p>123 Baker Street, Sweet Town, ST 12345</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <h4>Call Us</h4>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <h4>Email Us</h4>
+                            <p>hello@sweetdreams.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">⏰</span>
+                        <div>
+                            <h4>Opening Hours</h4>
+                            <p>Mon-Sat: 8AM - 8PM<br>Sunday: 9AM - 6PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <textarea placeholder="Tell us about your dream cake..." rows="5" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sweet Dreams Bakery</h3>
+                    <p>Creating sweet memories, one cake at a time.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Cakes</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Care</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for special offers and new cake launches!</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email">
+                        <button type="submit" class="btn btn-secondary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sweet Dreams Bakery. All rights reserved. Made with ❤️ and lots of sugar.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Your Shopping Cart</h2>
+                <button class="close-modal" id="close-cart">&times;</button>
+            </div>
+            <div class="modal-body" id="cart-items">
+                <!-- Cart items will be dynamically loaded here -->
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">
+                    <h3>Total: $<span id="cart-total">0.00</span></h3>
+                </div>
+                <button class="btn btn-primary btn-checkout" id="checkout-btn">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-modal-content">
+            <button class="close-modal" id="close-product">&times;</button>
+            <div class="modal-body product-modal-body" id="product-details">
+                <!-- Product details will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
