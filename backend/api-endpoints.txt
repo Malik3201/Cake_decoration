@@ -1,0 +1,209 @@
+BASE URL (development)
+- http://localhost:5000
+
+========================
+AUTH & USER ENDPOINTS
+========================
+
+POST   /api/auth/register
+- Description: Register a new user account.
+- Body (JSON):
+  { "name": "Jane Doe", "email": "jane@example.com", "password": "StrongPass123" }
+
+POST   /api/auth/login
+- Description: Login as user or admin (returns access + refresh tokens).
+- Body (JSON):
+  { "email": "jane@example.com", "password": "StrongPass123" }
+
+POST   /api/auth/admin/login
+- Description: Login explicitly as admin (requires user with role=admin).
+- Body (JSON):
+  { "email": "admin@decorabake.test", "password": "AdminPass123!" }
+
+POST   /api/auth/refresh
+- Description: Rotate access/refresh tokens.
+- Body (JSON) or cookie:
+  { "refreshToken": "<REFRESH_TOKEN>" }
+
+POST   /api/auth/logout
+- Description: Logout current user and invalidate refresh token.
+- Auth: Authorization: Bearer <ACCESS_TOKEN>
+- Optional body:
+  { "refreshToken": "<REFRESH_TOKEN>" }
+
+GET    /api/auth/me
+- Description: Get current authenticated user profile.
+- Auth: Authorization: Bearer <ACCESS_TOKEN>
+
+========================
+CATEGORY ENDPOINTS
+========================
+
+GET    /api/categories
+- Description: List all categories (public).
+
+GET    /api/categories/:id
+- Description: Get single category by ID (public).
+
+POST   /api/categories
+- Description: Create new category (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+- Body (JSON example):
+  { "name": "Cakes", "description": "Custom cakes" }
+
+PUT    /api/categories/:id
+- Description: Update category (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+DELETE /api/categories/:id
+- Description: Delete category (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+========================
+PRODUCT ENDPOINTS
+========================
+
+GET    /api/products
+- Description: List products (public).
+- Query params:
+  - category=<categoryId>
+  - featured=true|false
+
+GET    /api/products/:id
+- Description: Get single product by ID (public).
+
+POST   /api/products
+- Description: Create product (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+- Body (JSON example):
+  {
+    "title": "Birthday Chocolate Cake",
+    "description": "Rich chocolate cake",
+    "price": 40,
+    "salePrice": 35,
+    "category": "<CATEGORY_ID>",
+    "featured": true,
+    "stock": 50,
+    "images": ["/images/products/birthday-chocolate-cake.jpg"],
+    "seoTitle": "Birthday Chocolate Cake | DecoraBake",
+    "seoDescription": "Order a rich chocolate birthday cake."
+  }
+
+PUT    /api/products/:id
+- Description: Update product (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+DELETE /api/products/:id
+- Description: Delete product (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+========================
+ORDER ENDPOINTS
+========================
+
+POST   /api/orders
+- Description: Create new order for current user.
+- Auth: Authorization: Bearer <ACCESS_TOKEN>
+- Body (JSON example):
+  {
+    "items": [
+      { "product": "<PRODUCT_ID>", "quantity": 1 },
+      { "product": "<PRODUCT_ID_2>", "quantity": 2 }
+    ]
+  }
+
+GET    /api/orders/me
+- Description: List orders for current user.
+- Auth: Authorization: Bearer <ACCESS_TOKEN>
+
+GET    /api/orders/me/:id
+- Description: Get single order for current user by ID.
+- Auth: Authorization: Bearer <ACCESS_TOKEN>
+
+GET    /api/orders
+- Description: List all orders (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+GET    /api/orders/:id
+- Description: Get any order by ID (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+PATCH  /api/orders/:id/status
+- Description: Update order status (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+- Body (JSON):
+  { "status": "pending|paid|shipped|delivered" }
+
+PATCH  /api/orders/:id/paid
+- Description: Mark order as paid (admin only).
+- Typically used by payment confirm flow.
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+- Body (JSON):
+  { "paymentIntentId": "some-intent-id" }
+
+========================
+PAYMENT ENDPOINTS (MOCK)
+========================
+
+POST   /api/payments/intent
+- Description: Create payment intent for an order (mock).
+- Auth: Authorization: Bearer <ACCESS_TOKEN or ADMIN_ACCESS_TOKEN>
+- Body (JSON):
+  { "orderId": "<ORDER_ID>" }
+
+POST   /api/payments/confirm
+- Description: Confirm payment (mock) and mark order paid.
+- Auth: Authorization: Bearer <ACCESS_TOKEN or ADMIN_ACCESS_TOKEN>
+- Body (JSON):
+  {
+    "orderId": "<ORDER_ID>",
+    "paymentIntentId": "mock_intent_id"
+  }
+
+========================
+ANALYTICS ENDPOINTS (ADMIN)
+========================
+
+GET    /api/analytics/summary
+- Description: Get summary stats (admin only).
+- Returns: { totalRevenue, ordersCount, customersCount }
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+GET    /api/analytics/sales?range=daily|monthly
+- Description: Get sales over time (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+========================
+AI ASSISTANT ENDPOINT
+========================
+
+POST   /api/ai/chat
+- Description: Ask DecoraBake AI assistant for cake ideas and usage suggestions.
+- Body (JSON):
+  {
+    "messages": [
+      { "role": "user", "content": "Suggest a birthday cake with pink and gold theme." }
+    ]
+  }
+
+========================
+REPORT / CSV ENDPOINTS (ADMIN)
+========================
+
+GET    /api/reports/orders?from=YYYY-MM-DD&to=YYYY-MM-DD
+- Description: Export orders as CSV file (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+GET    /api/reports/products?from=YYYY-MM-DD&to=YYYY-MM-DD
+- Description: Export products as CSV file (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+
+POST   /api/reports/products/import
+- Description: Import products from CSV (admin only).
+- Auth: Authorization: Bearer <ADMIN_ACCESS_TOKEN>
+- Content-Type: multipart/form-data
+- Form field:
+  - file: CSV file with header:
+    title,description,price,salePrice,categoryName,featured,stock,seoTitle,seoDescription
+
+
