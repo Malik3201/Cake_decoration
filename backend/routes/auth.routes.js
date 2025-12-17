@@ -10,7 +10,7 @@ import {
   updateProfile,
 } from '../controllers/auth.controller.js';
 import { authenticate, requireRole } from '../middleware/auth.middleware.js';
-import { authLimiter } from '../middleware/rateLimit.middleware.js';
+import { authLimiter, registerLimiter } from '../middleware/rateLimit.middleware.js';
 import {
   registerValidator,
   loginValidator,
@@ -21,7 +21,8 @@ import {
 const router = Router();
 
 // Public (with rate limiting for security)
-router.post('/register', authLimiter, registerValidator, register);
+// Use a dedicated, slightly more relaxed limiter for registration
+router.post('/register', registerLimiter, registerValidator, register);
 router.post('/login', authLimiter, loginValidator, login);
 router.post('/admin/login', authLimiter, loginValidator, adminLogin);
 router.post('/refresh', refreshTokenController);

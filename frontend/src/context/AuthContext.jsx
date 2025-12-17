@@ -62,17 +62,28 @@ export const AuthProvider = ({ children }) => {
     setError(null);
     try {
       const { data } = await api.post('/api/auth/register', { name, email, password });
-      
+
       if (!data || !data.user) {
         throw new Error('Invalid response from server');
       }
-      
+
       // Auto-login after register
       const loggedInUser = await login({ email, password });
       return loggedInUser || data.user;
     } catch (err) {
-      const msg = err?.response?.data?.message || err?.message || 'Unable to register';
-      setError(msg);
+      const backendErrors = err?.response?.data?.errors;
+
+      // Prefer detailed validation messages from backend if available
+      if (Array.isArray(backendErrors) && backendErrors.length > 0) {
+        const combined = backendErrors
+          .map(e => e?.message)
+          .filter(Boolean)
+          .join(' ');
+        setError(combined || 'Please check your details and try again.');
+      } else {
+        const msg = err?.response?.data?.message || err?.message || 'Unable to register';
+        setError(msg);
+      }
       throw err;
     } finally {
       setLoading(false);

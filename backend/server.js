@@ -50,9 +50,14 @@ async function startServer() {
   try {
     // Validate configuration first
     validateConfig();
-    
+
+    // Log which database we are trying to connect to (mask credentials)
+    const safeUri = MONGODB_URI.replace(/\/\/([^@]+)@/, '//***:***@');
+    logger.info(`Attempting MongoDB connection using URI: ${safeUri}`);
+
     await mongoose.connect(MONGODB_URI, {
-      // options can be customized if needed
+      // You can customize options if needed for Atlas, for example:
+      // serverSelectionTimeoutMS: 30000,
     });
     logger.info('✅ Connected to MongoDB');
 
@@ -71,7 +76,8 @@ async function startServer() {
     });
 
   } catch (error) {
-    logger.error('❌ Failed to start server', error);
+    logger.error('❌ Failed to start server');
+    logger.error('MongoDB connection error:', error);
     process.exit(1);
   }
 }
