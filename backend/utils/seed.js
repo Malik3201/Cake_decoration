@@ -6,7 +6,7 @@ import { Product } from '../models/product.model.js';
 import { Order } from '../models/order.model.js';
 
 async function seed() {
-  const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/decora_bake';
+  const MONGODB_URI = process.env.MONGODB_URI ;
   await mongoose.connect(MONGODB_URI);
 
   console.log('Clearing existing data...');
